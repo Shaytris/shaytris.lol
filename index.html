@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
-        
+        /* Page background */
         body {
             margin: 0;
             padding: 0;
@@ -15,7 +15,7 @@
             font-family: Arial, Helvetica, sans-serif; /* Font family */
         }
 
-        
+        /* Navbar styles */
         .navbar {
             background-color: #0d0a14; /* Background color for the navbar */
             overflow: hidden;
@@ -25,7 +25,7 @@
             z-index: 9999; /* Ensure navbar stays on top */
         }
         
-        
+        /* Links inside the navbar */
         .navbar a {
             float: left;
             display: block;
@@ -35,18 +35,18 @@
             text-decoration: none;
         }
         
-        
+        /* Style the navbar links on hover */
         .navbar a:hover {
             background-color: #9f7bed; /* Background color on hover */
             color: #0d0a14; /* Text color on hover */
         }
         
-        
+        /* Shaytris styling */
         .shaytris {
             float: right;
         }
 
-        
+        /* Transparent box with glass-like effect */
         .glass-box {
             background-color: rgba(255, 255, 255, 0.1); /* Transparent white background */
             border-radius: 10px;
@@ -60,13 +60,13 @@
             text-align: center; /* Center text horizontally */
         }
 
-        
+        /* 3D effect on hover */
         .glass-box:hover {
             transform: translateY(-5px); /* Move the box up */
             box-shadow: 0 8px 16px rgba(255, 255, 255, 0.5); /* Increase shadow size */
         }
 
-        
+        /* Button styles */
         .button {
             border: none;
             border-radius: 50px; /* Make button round */
@@ -76,13 +76,13 @@
             outline: none;
         }
 
-        
+        /* First button */
         .button-primary {
             background-color: #926ee0; /* Background color */
             color: white; /* Text color */
         }
 
-        
+        /* Second button */
         .button-secondary {
             background-color: #ffffff; /* Different background color */
             color: #926ee0; /* Text color */
@@ -104,21 +104,32 @@
             color: white;
         }
 
-        
+        /* Icon styles */
         .box-icon {
             font-size: 24px; /* Decrease icon size */
             margin-bottom: 10px; /* Decrease margin for better alignment */
         }
 
-        
+        /* Heading styles */
         .box-heading {
             font-size: 16px; /* Decrease heading size */
             margin-bottom: 10px; /* Decrease margin for better alignment */
         }
 
-        
+        /* Paragraph styles */
         .box-paragraph {
             font-size: 14px; /* Decrease paragraph size */
+        }
+
+        /* Media Query for mobile */
+        @media screen and (max-width: 600px) {
+            .glass-box {
+                width: 90%; /* Adjust width for smaller screens */
+            }
+
+            .box-group {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust grid for smaller screens */
+            }
         }
 
     </style>

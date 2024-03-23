@@ -4,11 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spinning Image</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/13.2.0/twemoji.min.css" integrity="sha384-uzVchGI5XJzjY9ETgyB4Uaxa1yA7lPib1N/Y4ltjddAisR+G8wA7vGkzoVakjaFi" crossorigin="anonymous">
 <style>
-  body {
+  html, body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+  }
+
+  html {
     background-image: url('https://i.imgur.com/EjKl5Z0.jpeg'); /* Set your background image path */
     background-size: cover; /* Stretch the background image to cover the entire viewport */
     background-position: center; /* Center the background image */
@@ -45,10 +48,82 @@
     100% { transform: rotate(360deg); }
   }
 
+  /* Define the moving animation */
+  @keyframes moveLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-200px); } /* Move 200px to the left */
+  }
+
   /* Apply the animation to the image */
   .spinning {
     animation: spin 1s infinite linear;
   }
+
+  .moving {
+    animation: moveLeft 0.5s forwards;
+  }
+
+  .spinning:hover {
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+
+  /* Box styling */
+  .box {
+    width: 300px; /* Adjust width as needed */
+    height: 100px;
+    background-color: #9f7bed;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px; /* Padding for the text */
+    box-sizing: border-box;
+    position: relative;
+    z-index: 0;
+    transition: transform 0.3s ease;
+    margin-left: 750px; /* Adjust margin-left to move the boxes to the left */
+    font-family: 'Lexend', sans-serif; /* Set font to Lexend */
+    color: white; /* Set font color to white */
+  }
+
+  .box img {
+    height: 80px; /* Adjust height as needed */
+    margin-right: 10px; /* Spacing between image and text */
+    margin-left: -90px; /* Move the image to the left of the box */
+    z-index: 1;
+  }
+
+  /* Add 3D effect on hover */
+  .box:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .box:hover:before {
+    transform: scaleX(1.05) scaleY(1.2);
+  }
+
+  /* Make boxes follow mouse cursor */
+  .box:hover {
+    transform: translateY(-10px) scale(1.1);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Add shadow for depth */
+  .box:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
 </style>
 </head>
 <body>
@@ -56,7 +131,7 @@
 <div class="top-bar"></div>
 
 <div class="container">
-  <img id="spinningImage" src="shaytris-logo.svg" alt="Your Image Description">
+  <img id="spinningImage" class="spinning" src="shaytris-logo.svg" alt="Your Image Description">
 </div>
 
 <div class="bottom-bar"></div>
@@ -75,6 +150,55 @@
   
   // Initial call to start spinning
   startSpinning();
+
+  // Text for each box
+  var boxTexts = [
+    'Play',
+    'Editor',
+    'Settings',
+    'Exit'
+  ];
+
+  // Function to move the spinning image to the left when clicked
+  document.getElementById('spinningImage').addEventListener('click', function() {
+    // Move the image to the left
+    this.classList.add('moving'); // Add class to start the moving animation
+    
+    // Create and append four boxes
+    var container = document.createElement('div');
+    container.classList.add('container');
+    for (var i = 0; i < 4; i++) {
+      var box = document.createElement('div');
+      box.classList.add('box');
+      box.setAttribute('data-index', i); // Set a unique identifier for each box
+      var image = document.createElement('img');
+      image.src = 'https://via.placeholder.com/80'; // Placeholder image
+      URL
+      box.appendChild(image);
+      var text = document.createElement('div');
+      text.innerText = boxTexts[i]; // Assign text from the array
+      box.appendChild(text);
+      container.appendChild(box);
+    }
+    document.body.appendChild(container);
+
+    // Event listener for the "Exit" box
+    document.querySelectorAll('.box')[3].addEventListener('click', function() {
+      document.body.style.backgroundColor = "black"; // Change background color to black
+      document.body.innerHTML = "<div style='color: white; font-size: 3em; text-align: center; margin-top: 30vh; font-family: Lexend, sans-serif;'>Goodbye <span class='twemoji'>👋</span></div>"; // Goodbye message with Twemoji waving hand
+      setTimeout(function() {
+        window.close(); // Close the tab after 1 second
+      }, 1000);
+    });
+
+    // Remove spinning animation when any box is clicked
+    var boxes = document.querySelectorAll('.box');
+    boxes.forEach(function(box) {
+      box.addEventListener('click', function() {
+        spinningImage.classList.remove('spinning');
+      });
+    });
+  });
 </script>
 
 </body>

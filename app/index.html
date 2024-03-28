@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spinning Image</title>
+<title>Shaytris Nexus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/13.2.0/twemoji.min.css" integrity="sha384-uzVchGI5XJzjY9ETgyB4Uaxa1yA7lPib1N/Y4ltjddAisR+G8wA7vGkzoVakjaFi" crossorigin="anonymous">
 <style>
   html, body {
@@ -19,7 +19,7 @@
 
   .top-bar, .bottom-bar {
     height: 70px; /* Adjust height as needed */
-    background-color: rgba(0, 0, 0, 0.3); /* Adjust transparency as needed */
+    background-color: rgba(0, 0, 0, 0.397); /* Adjust transparency as needed */
     position: fixed;
     left: 0;
     right: 0;
@@ -71,7 +71,7 @@
   .box {
     width: 300px; /* Adjust width as needed */
     height: 100px;
-    background-color: #9f7bed;
+    background-color: #444444;
     margin: 10px;
     display: flex;
     align-items: center;
@@ -124,6 +124,64 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   }
 
+  /* Black overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: none;
+  }
+
+  /* Settings box */
+  #settingsBox {
+    width: calc(50% - 20px); /* Take up half of the screen width minus some margin */
+    height: 100vh; /* Take up entire vertical height */
+    background-color: rgba(0, 0, 0, 0.534); /* Adjust background color and opacity */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3; /* Ensure it's above the overlay */
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%); /* Initially off screen to the left */
+    overflow-y: auto; /* Enable scrolling if content exceeds height */
+    font-family: Arial, sans-serif; /* Set font to Arial */
+    color: white; /* Set font color to white */
+  }
+
+  /* Show settings box when active */
+  #settingsBox.active {
+    transform: translateX(0); /* Move to the left */
+  }
+
+  /* Back button */
+  #backButton {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #backButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Position the back button */
+  #backButton {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
 </style>
 </head>
 <body>
@@ -135,6 +193,15 @@
 </div>
 
 <div class="bottom-bar"></div>
+
+<div class="overlay" id="settingsOverlay"></div>
+
+<div id="settingsBox">
+  <!-- Content of settings box -->
+  <h2>Settings</h2>
+  <!-- Add your settings content here -->
+  <button id="backButton">Back</button>
+</div>
 
 <script>
   // Function to start spinning every 4 seconds after a delay of 7 seconds
@@ -172,8 +239,7 @@
       box.classList.add('box');
       box.setAttribute('data-index', i); // Set a unique identifier for each box
       var image = document.createElement('img');
-      image.src = 'https://via.placeholder.com/80'; // Placeholder image
-      URL
+      image.src = 'https://via.placeholder.com/80'; // Placeholder image URL
       box.appendChild(image);
       var text = document.createElement('div');
       text.innerText = boxTexts[i]; // Assign text from the array
@@ -182,13 +248,23 @@
     }
     document.body.appendChild(container);
 
+    // Event listener for the "Settings" box
+    document.querySelectorAll('.box')[2].addEventListener('click', function() {
+      // Show the settings box
+      var settingsBox = document.getElementById('settingsBox');
+      settingsBox.classList.toggle('active'); // Toggle active class to show/hide settings box
+      // Hide the overlay when settings box is closed
+      if (!settingsBox.classList.contains('active')) {
+        document.getElementById('settingsOverlay').style.display = 'none';
+      } else {
+        document.getElementById('settingsOverlay').style.display = 'block'; // Show the overlay
+      }
+    });
+
     // Event listener for the "Exit" box
     document.querySelectorAll('.box')[3].addEventListener('click', function() {
-      document.body.style.backgroundColor = "black"; // Change background color to black
-      document.body.innerHTML = "<div style='color: white; font-size: 3em; text-align: center; margin-top: 30vh; font-family: Lexend, sans-serif;'>Goodbye <span class='twemoji'>👋</span></div>"; // Goodbye message with Twemoji waving hand
-      setTimeout(function() {
-        window.close(); // Close the tab after 1 second
-      }, 1000);
+      // Redirect to a blank page to effectively close the tab
+      window.location.href = 'about:blank';
     });
 
     // Remove spinning animation when any box is clicked
@@ -198,6 +274,12 @@
         spinningImage.classList.remove('spinning');
       });
     });
+  });
+
+  // Event listener for the back button
+  document.getElementById('backButton').addEventListener('click', function() {
+    document.getElementById('settingsBox').classList.remove('active');
+    document.getElementById('settingsOverlay').style.display = 'none';
   });
 </script>
 

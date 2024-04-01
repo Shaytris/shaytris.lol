@@ -127,16 +127,61 @@
   /* Black overlay */
   .overlay {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 200px; /* Adjust width of the overlay */
-    height: 200px; /* Adjust height of the overlay */
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust transparency as needed */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
-    display: none; /* Initially hidden */
-    transform: translate(-50%, -50%);
+    display: none;
   }
 
+  /* Settings box */
+  #settingsBox {
+    width: calc(50% - 20px); /* Take up half of the screen width minus some margin */
+    height: 100vh; /* Take up entire vertical height */
+    background-color: rgba(0, 0, 0, 0.534); /* Adjust background color and opacity */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3; /* Ensure it's above the overlay */
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%); /* Initially off screen to the left */
+    overflow-y: auto; /* Enable scrolling if content exceeds height */
+    font-family: Arial, sans-serif; /* Set font to Arial */
+    color: white; /* Set font color to white */
+  }
+
+  /* Show settings box when active */
+  #settingsBox.active {
+    transform: translateX(0); /* Move to the left */
+  }
+
+  /* Back button */
+  #backButton {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #backButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Position the back button */
+  #backButton {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
 </style>
 </head>
 <body>
@@ -150,6 +195,13 @@
 <div class="bottom-bar"></div>
 
 <div class="overlay" id="settingsOverlay"></div>
+
+<div id="settingsBox">
+  <!-- Content of settings box -->
+  <h2>Settings</h2>
+  <!-- Add your settings content here -->
+  <button id="backButton">Back</button>
+</div>
 
 <script>
   // Function to start spinning every 4 seconds after a delay of 7 seconds
@@ -197,12 +249,16 @@
     document.body.appendChild(container);
 
     // Event listener for the "Settings" box
-   
-// Event listener for the "Settings" box
-document.querySelectorAll('.box')[2].addEventListener('click', function() {
-      // Show the black overlay when "Settings" is clicked
-      var overlay = document.getElementById('settingsOverlay');
-      overlay.style.display = 'block'; // Show the overlay
+    document.querySelectorAll('.box')[2].addEventListener('click', function() {
+      // Show the settings box
+      var settingsBox = document.getElementById('settingsBox');
+      settingsBox.classList.toggle('active'); // Toggle active class to show/hide settings box
+      // Hide the overlay when settings box is closed
+      if (!settingsBox.classList.contains('active')) {
+        document.getElementById('settingsOverlay').style.display = 'none';
+      } else {
+        document.getElementById('settingsOverlay').style.display = 'block'; // Show the overlay
+      }
     });
 
     // Event listener for the "Exit" box
@@ -211,13 +267,19 @@ document.querySelectorAll('.box')[2].addEventListener('click', function() {
       window.location.href = 'about:blank';
     });
 
-    // Remove spinning animation when any box is clicked
+     // Remove spinning animation when any box is clicked
     var boxes = document.querySelectorAll('.box');
     boxes.forEach(function(box) {
       box.addEventListener('click', function() {
         spinningImage.classList.remove('spinning');
       });
     });
+  });
+
+  // Event listener for the back button
+  document.getElementById('backButton').addEventListener('click', function() {
+    document.getElementById('settingsBox').classList.remove('active');
+    document.getElementById('settingsOverlay').style.display = 'none';
   });
 </script>
 

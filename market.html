@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shaytris</title>
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Page background */
+        body {
+            margin: 0;
+            padding: 20px; /* Add padding to prevent elements from touching the edges */
+            background-color: #0d0a14; /* Background color for the page */
+            color: white; /* Text color */
+            font-family: Arial, Helvetica, sans-serif; /* Font family */
+            position: relative; /* Position relative for absolute positioning of the gradient */
+            overflow-x: hidden; /* Hide horizontal overflow */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #0d0a14; /* Background color for the navbar */
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: calc(100% - 40px); /* Adjust width to account for padding */
+            z-index: 9999; /* Ensure navbar stays on top */
+        }
+        
+        /* Links inside the navbar */
+        .navbar a {
+            float: left;
+            display: block;
+            color: #9f7bed; /* Link color */
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        
+        /* Style the navbar links on hover */
+        .navbar a:hover {
+            background-color: #9f7bed; /* Background color on hover */
+            color: #0d0a14; /* Text color on hover */
+        }
+
+        /* Shaytris styling */
+        .shaytris {
+            float: right;
+        }
+
+        /* Animated gold gradient covering the top */
+        .animated-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            background: linear-gradient(45deg, #ffd700, #ffd700, #f0e68c, #ffd700, #ffd700); /* Define gradient colors */
+            background-size: 300% 300%; /* Increase size of the background */
+            animation: gradientAnimation 10s ease infinite; /* Define animation */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 0 0 10px 10px; /* Rounded corners for the bottom */
+            z-index: 999; /* Ensure the gradient is on top of other content */
+        }
+
+        /* Gradient animation */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Title styling */
+        .gradient-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: white; /* Text color */
+            margin-bottom: 10px; /* Add some spacing */
+        }
+
+        /* Rounded button styling */
+        .rounded-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #f0e68c; /* Different shade of gold */
+            color: #0d0a14; /* Text color */
+            text-decoration: none;
+            display: inline-block; /* Make it inline-block to adjust width */
+        }
+
+        /* Box styling */
+        .box-container {
+            position: absolute;
+            top: 240px; /* Adjust this value to position the boxes below the gradient */
+            left: 0;
+            width: 50%;
+            display: flex;
+            /* justify-content: space-between; */ /* Remove this line */
+            z-index: 998; /* Ensure the boxes are below the gradient but above other content */
+        }
+
+        .box {
+            width: auto; /* Set width to auto */
+            max-width: 600px; /* Max width of the box */
+            height: auto; /* Set height to auto */
+            max-height: 300px; /* Max height of the box */
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Glass-like shadow */
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0 20px; /* Add margin to prevent the box from touching the edge */
+        }
+
+        /* New badge */
+        .new-badge {
+            background-color: #b78cf0; /* Gold background color */
+            color: #0d0a14; /* Text color */
+            padding: 5px 10px; /* Adjust padding as needed */
+            border-radius: 10px; /* Rounded corners */
+            margin-left: 10px; /* Adjust spacing from the text */
+        }
+
+        /* Image styling */
+        .box img {
+            width: 100%; /* Set width to 100% to fit the whole box */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Rounded corners for the image */
+            margin-bottom: 10px; /* Add some spacing */
+        }
+
+        /* Download button styling */
+        .download-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #f0e68c; /* Different shade of gold */
+            color: #0d0a14; /* Text color */
+            text-decoration: none;
+            display: inline-block; /* Make it inline-block to adjust width */
+            margin-bottom: 10px; /* Add some spacing */
+        }
+
+        /* Maped by link */
+        .maped-by {
+            color: #b78cf0; /* Light purple color */
+            text-decoration: none; /* Remove default underline */
+        }
+
+        /* Custom switch styling */
+        .switch {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align items to the right */
+            margin-right: 20px; /* Adjust margin for spacing */
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: relative;
+            cursor: pointer;
+            width: 60px;
+            height: 34px;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Text next to the switch */
+        .switch-text {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="download.html">Download</a>
+  <a href="#">Marketplace</a>
+  <a href="supporter.html">Supporter</a>
+</div>
+<br>
+<br>
+<h1>Marketplace <span class="new-badge">New</span></h1> 
+<div class="box-container">
+    <div class="box">
+        <p>AIR HEADS!?!?!</p>
+        <p>Maped by <a href="#" class="maped-by">v</a></p>
+    </div>
+</div>
+<div class="switch">
+    <span class="switch-text">Themes</span>
+    <input type="checkbox" id="optionSwitch">
+    <label class="slider" for="optionSwitch"></label>
+</div>
+
+<script>
+    const optionSwitch = document.getElementById('optionSwitch');
+    optionSwitch.addEventListener('change', function() {
+        const switchText = document.querySelector('.switch-text');
+        switchText.textContent = this.checked ? 'Maps' : 'Themes';
+    });
+</script>
+
+</body>
+</html>

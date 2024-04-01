@@ -32,6 +32,18 @@
 
   .bottom-bar {
     bottom: 0;
+    padding: 0 20px; /* Add padding to the left and right */
+  }
+
+  .bottom-bar p a {
+    color: white; /* Set text color to white */
+    font-family: 'Lexend', sans-serif; /* Set font to Lexend */
+    text-decoration: none; /* Remove underline */
+  }
+
+  .bottom-bar p a:hover {
+    color: rgb(106, 48, 240); /* Set text color to purple on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
   }
 
   .container {
@@ -71,7 +83,7 @@
   .box {
     width: 300px; /* Adjust width as needed */
     height: 100px;
-    background-color: #444444;
+    background-color: #070707;
     margin: 10px;
     display: flex;
     align-items: center;
@@ -140,7 +152,7 @@
   #settingsBox {
     width: calc(50% - 20px); /* Take up half of the screen width minus some margin */
     height: 100vh; /* Take up entire vertical height */
-    background-color: rgba(0, 0, 0, 0.534); /* Adjust background color and opacity */
+    background-color: rgba(0, 0, 0, 0.815); /* Adjust background color and opacity */
     position: fixed;
     top: 0;
     left: 0;
@@ -171,7 +183,28 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-
+  #checkupdate {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #restart {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
   #backButton:hover {
     background-color: rgba(0, 0, 0, 0.8);
   }
@@ -192,7 +225,7 @@
   <img id="spinningImage" class="spinning" src="shaytris-logo.svg" alt="Your Image Description">
 </div>
 
-<div class="bottom-bar"></div>
+<div class="bottom-bar"><p><a href="https://van.nekoweb.org/">© Vanished 2024</a></p></div>
 
 <div class="overlay" id="settingsOverlay"></div>
 
@@ -200,6 +233,23 @@
   <!-- Content of settings box -->
   <h2>Settings</h2>
   <!-- Add your settings content here -->
+  <br>
+  <h4>General</h4>
+  <br>
+  <button id="checkupdate">Check for updates</button>
+  <br>
+  <br>
+  <P>Client channel</P><form action="/action_page.php">
+    <label for="Update channel"></label>
+    <select name="cars" id="cars">
+      <option value="volvo">Nightly</option>
+      <option value="saab">Stable</option>
+    </select>
+  </form>
+  <br>
+  <h4>Debug options</h4>
+  <br>
+  <button id="restart">Refresh Client</button>
   <button id="backButton">Back</button>
 </div>
 
@@ -226,6 +276,14 @@
     'Exit'
   ];
 
+  // Array of image URLs for each box
+  var boxImages = [
+    'play.svg',
+    'editor.svg',
+    'options.svg',
+    'exit.svg'
+  ];
+
   // Function to move the spinning image to the left when clicked
   document.getElementById('spinningImage').addEventListener('click', function() {
     // Move the image to the left
@@ -239,7 +297,8 @@
       box.classList.add('box');
       box.setAttribute('data-index', i); // Set a unique identifier for each box
       var image = document.createElement('img');
-      image.src = 'https://via.placeholder.com/80'; // Placeholder image URL
+      // Set the src attribute of the image to the corresponding URL from the boxImages array
+      image.src = boxImages[i];
       box.appendChild(image);
       var text = document.createElement('div');
       text.innerText = boxTexts[i]; // Assign text from the array
@@ -281,6 +340,22 @@
     document.getElementById('settingsBox').classList.remove('active');
     document.getElementById('settingsOverlay').style.display = 'none';
   });
+
+  // Event listener for the "Check for updates" button
+  document.getElementById('checkupdate').addEventListener('click', function() {
+    // Change button text to "Checking"
+    this.innerText = "Checking";
+    // After 1 second, change button text back to "Check for updates"
+    setTimeout(() => {
+      this.innerText = "Check for updates";
+    }, 1000);
+  });
+  // Event listener for the "Refresh Client" button
+document.getElementById('restart').addEventListener('click', function() {
+  // Refresh the page
+  location.reload();
+});
+
 </script>
 
 </body>

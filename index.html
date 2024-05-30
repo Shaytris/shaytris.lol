@@ -68,8 +68,8 @@
         .button {
             border: none;
             border-radius: 25px; /* Rounded button */
-            padding: 15px 30px;
-            margin: 10px;
+            padding: 10px 20px; /* Adjusted padding */
+            margin: 0 10px; /* Adjusted margin */
             cursor: pointer;
             outline: none;
             transition: background-color 0.3s, color 0.3s;
@@ -152,10 +152,16 @@
 <body>
 
 <div class="navbar">
-  <a href="index.html">Home</a>
-  <a href="#">Download</a>
-  <a href="market.html">Marketplace</a>
-  <a href="#">Supporter</a>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="#">Download</a>
+    <a href="market.html">Marketplace</a>
+    <a href="#">Supporter</a>
+  </div>
+  <div>
+    <button class="button button-primary">Login</button>
+    <button class="button button-secondary">Logout</button>
+  </div>
 </div>
 
 <!-- Transparent box with content -->
@@ -179,6 +185,8 @@
             <h3 class="box-heading">Easy to mod and make your own</h3>
             <p class="box-paragraph">Shaytris prides itself on its customizability and it is open source on GitHub!</p>
         </div>
+        <div class="box">
+            <i class="fas fa-chart-line box-icon"></
         <div class="box">
             <i class="fas fa-chart-line box-icon"></i>
             <h3 class="box-heading">Easy to run</h3>

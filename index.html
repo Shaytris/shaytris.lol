@@ -7,87 +7,98 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fluentui/web-components@0.2.0/dist/fluent.css">
 
     <style>
-        /* Page background */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #0d0a14; /* Background color for the page */
-            color: white; /* Text color */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fluent font with fallback */
+        /* Set variables for colors */
+        :root {
+            --background-dark: #0d0a14;
+            --background-light: #ffffff;
+            --text-dark: #ffffff;
+            --text-light: #000000;
+            --primary-color: #0078D4;
+            --secondary-color: #9f7bed;
+        }
+
+        /* Light mode */
+        body.light-mode {
+            background-color: var(--background-light);
+            color: var(--text-light);
+        }
+
+        /* Dark mode */
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
         }
 
         /* Navbar styles */
         .navbar {
-            background-color: #1f1f1f; /* Background color for the navbar */
+            background-color: var(--background-dark);
+            color: var(--text-light);
             overflow: hidden;
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 9999; /* Ensure navbar stays on top */
+            z-index: 9999;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Links inside the navbar */
         .navbar a {
-            color: #9f7bed; /* Link color */
+            color: var(--secondary-color);
             text-align: center;
             padding: 10px 20px;
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fluent font with fallback */
         }
-        
+
         /* Style the navbar links on hover */
         .navbar a:hover {
-            background-color: #9f7bed; /* Background color on hover */
-            color: #0d0a14; /* Text color on hover */
+            background-color: var(--secondary-color);
+            color: var(--background-dark);
         }
 
         /* Transparent box with glass-like effect */
         .glass-box {
-            background-color: rgba(255, 255, 255, 0.1); /* Transparent white background */
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
-            margin: 100px 20px; /* Adjusted for left alignment */
-            max-width: 800px; /* Maximum width */
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Glass-like shadow */
+            margin: 100px 20px;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
             text-align: left;
             transition: transform 0.3s, box-shadow 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fluent font with fallback */
         }
 
         /* 3D effect on hover */
         .glass-box:hover {
-            transform: translateY(-5px); /* Move the box up */
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.5); /* Increase shadow size */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.5);
         }
 
         /* Button styles */
         .button {
             border: none;
-            border-radius: 25px; /* Rounded button */
-            padding: 10px 20px; /* Adjusted padding */
-            margin: 0 10px; /* Adjusted margin */
+            border-radius: 25px;
+            padding: 10px 20px;
+            margin: 0 10px;
             cursor: pointer;
             outline: none;
             transition: background-color 0.3s, color 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fluent font with fallback */
         }
 
         /* Primary button */
         .button-primary {
-            background-color: #0078D4; /* Fluent primary color */
+            background-color: var(--primary-color);
             color: white;
         }
 
         /* Secondary button */
         .button-secondary {
-            background-color: #ffffff; /* Different background color */
-            color: #0078D4; /* Fluent primary color for text */
+            background-color: #ffffff;
+            color: var(--primary-color);
         }
 
         /* Button hover effects */
@@ -115,7 +126,6 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fluent font with fallback */
         }
 
         .box:hover {
@@ -144,29 +154,32 @@
         @media screen and (max-width: 600px) {
             .glass-box {
                 width: 90%;
-/* Adjust width for smaller screens */
             }
 
             .box-group {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust grid for smaller screens */
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
         }
 
     </style>
 </head>
-<body>
+<body class="light-mode">
 
 <div class="navbar">
-  <div>
-    <a href="index.html">Home</a>
-    <a href="#">Download</a>
-    <a href="market.html">Marketplace</a>
-    <a href="#">Supporter</a>
-  </div>
-  <div>
-    <button class="button button-primary">Login</button>
-    <button class="button button-secondary">Logout</button>
-  </div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="#">Download</a>
+        <a href="market.html">Marketplace</a>
+        <a href="#">Supporter</a>
+    </div>
+    <div>
+        <button class="button button-primary">Login</button>
+        <button class="button button-secondary">Logout</button>
+    </div>
+    <div>
+        <!-- Add a button to toggle dark/light mode -->
+        <button class="button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
 </div>
 
 <!-- Transparent box with content -->
@@ -201,6 +214,13 @@
 <div class="glass-box">
     <p>&copy; Sleepless Software 2024 - 2024</p>
 </div>
+
+<!-- JavaScript for toggling dark/light mode -->
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
 
 </body>
 </html>

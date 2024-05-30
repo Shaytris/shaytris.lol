@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Shaytris</title>
-    <!-- Include Fluent UI CSS -->
+    <!-- Include Fluent UI CSS and Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fluentui/web-components@0.2.0/dist/fluent.css">
 
@@ -18,7 +18,7 @@
 
         /* Navbar styles */
         .navbar {
-            background-color: #0d0a14; /* Background color for the navbar */
+            background-color: #1f1f1f; /* Background color for the navbar */
             overflow: hidden;
             position: fixed;
             top: 0;
@@ -50,12 +50,11 @@
         .glass-box {
             background-color: rgba(255, 255, 255, 0.1); /* Transparent white background */
             border-radius: 10px;
-            padding: 40px 20px;
-            margin: 100px auto; /* Centering the box */
-            width: 80%; /* Limit width */
+            padding: 20px;
+            margin: 100px 20px; /* Adjusted for left alignment */
             max-width: 800px; /* Maximum width */
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Glass-like shadow */
-            text-align: center;
+            text-align: left;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -157,7 +156,6 @@
   <a href="#">Download</a>
   <a href="market.html">Marketplace</a>
   <a href="#">Supporter</a>
-  <a href="#" class="shaytris">Shaytris</a>
 </div>
 
 <!-- Transparent box with content -->
@@ -187,10 +185,10 @@
             <p class="box-paragraph">Shaytris can run on any device since it is web-based. Check the download for more info!</p>
         </div>
     </div>
-    
-    <div class="glass-box" style="text-align: center;">
-        <p>&copy; Sleepless Software 2024 - 2024</p>
-    </div>    
+</div>
+
+<div class="glass-box">
+    <p>&copy; Sleepless Software 2024 - 2024</p>
 </div>
 
 </body>
